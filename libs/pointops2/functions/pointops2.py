@@ -35,14 +35,15 @@ class KNNQuery(Function):
         input: xyz: (n, 3), new_xyz: (m, 3), offset: (b), new_offset: (b)
         output: idx: (m, nsample), dist2: (m, nsample)
         """
-        if new_xyz is None:
+        if new_xyz is None or new_offset is None:
             new_xyz = xyz
+            new_offset = offset
         assert xyz.is_contiguous() and new_xyz.is_contiguous()
         m = new_xyz.shape[0]
         idx = torch.cuda.IntTensor(m, nsample).zero_()
         dist2 = torch.cuda.FloatTensor(m, nsample).zero_()
         pointops_cuda.knnquery_cuda(
-            m, nsample, xyz, new_xyz, offset, new_offset, idx, dist2
+            m, nsample, xyz, new_xyz, offset.int(), new_offset.int(), idx, dist2
         )
         return idx, torch.sqrt(dist2)
 
