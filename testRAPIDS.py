@@ -2,6 +2,11 @@ import torch
 import cudf
 import timeit
 from cuml import NearestNeighbors
+from cuml.common.device_selection import using_device_type, set_global_device_type, get_global_device_type
+
+
+initial_device_type = get_global_device_type()
+print('default execution device:', initial_device_type)
 
 # Create a random point cloud
 n_points = 65536
@@ -19,12 +24,12 @@ nn = NearestNeighbors(n_neighbors=n_neighbors)
 
 
 start_time = timeit.default_timer()
+with using_device_type('gpu'):
+    # Fit the model with the input data
+    nn.fit(df)
 
-# Fit the model with the input data
-nn.fit(df)
-
-# Get the nearest neighbors
-distances, indices = nn.kneighbors(df)
+    # Get the nearest neighbors
+    distances, indices = nn.kneighbors(df)
 
 end_time = timeit.default_timer()
 execution_time = end_time - start_time
