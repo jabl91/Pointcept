@@ -145,11 +145,14 @@ python setup.py install
 # docker & multi GPU arch
 TORCH_CUDA_ARCH_LIST="ARCH LIST" python  setup.py install
 # e.g. 7.5: RTX 3000; 8.0: a100 More available in: https://developer.nvidia.com/cuda-gpus
-TORCH_CUDA_ARCH_LIST="7.5 8.0" python  setup.py install
+TORCH_CUDA_ARCH_LIST="8.0 8.6" python  setup.py install
 cd ../..
 
 # Open3D (visualization, optional)
 pip install open3d
+
+# Install Python Debugger
+pip install debugpy
 ```
 
 ## Data Preparation
@@ -518,7 +521,7 @@ sh scripts/train.sh -g 4 -d s3dis -c semseg-pt-v3m1-0-rpe -n semseg-pt-v3m1-0-rp
 sh scripts/train.sh -g 8 -d s3dis -c semseg-pt-v3m1-1-ppt-extreme -n semseg-pt-v3m1-1-ppt-extreme
 
 # Scratched nuScenes
-sh scripts/train.sh -g 4 -d nuscenes -c semseg-pt-v3m1-0-base -n semseg-pt-v3m1-0-base
+sh scripts/train.sh -g 1 -d nuscenes -c semseg-pt-v3m1-0-base -n semseg-pt-v3m1-0-base
 # Scratched Waymo
 sh scripts/train.sh -g 4 -d waymo -c semseg-pt-v3m1-0-base -n semseg-pt-v3m1-0-base
 
@@ -572,7 +575,7 @@ sh scripts/train.sh -g 4 -d s3dis -c semseg-pt-v2m2-0-base -n semseg-pt-v2m2-0-b
 # SemanticKITTI
 sh scripts/train.sh -g 4 -d semantic_kitti -c semseg-pt-v2m2-0-base -n semseg-pt-v2m2-0-base
 # nuScenes
-sh scripts/train.sh -g 4 -d nuscenes -c semseg-pt-v2m2-0-base -n semseg-pt-v2m2-0-base
+sh scripts/train.sh -g 4 -d nuscenes -c semseg-pt-v2m2-0-base -n semseg-pt-v2m2-0-base -g 1
 ```
 
 - **PTv2 mode1**
