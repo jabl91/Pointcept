@@ -120,6 +120,7 @@ If you find _Pointcept_ useful to your research, please cite our work as encoura
 - Ubuntu: 18.04 and above.
 - CUDA: 11.3 and above.
 - PyTorch: 1.10.0 and above.
+- `Important` VS Code: 1.85.2 or less if Ubuntu 18.04 is used.
 
 ### Conda Environment
 
